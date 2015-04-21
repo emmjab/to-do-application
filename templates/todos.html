@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block body %}
+
+	<form action="{{ url_for('add_todo') }}" method=post class=add-todo>
+		<dl>
+			<dt>Description:
+			<dd><input type=text size=30 name=description>
+			<dt>Due Date:
+			<dd><input type=date name='due_date'>
+			<dd><input type=submit value=Share>
+		</dl>
+	</form>
+	<ul class=todo>
+	{% for todo in todos %}
+		<li>
+		<input type="checkbox" name=done><h2>{{ todo.description|safe }}</h2>
+		<p>Created: {{ todo.created_ts }}</p>
+		{% if todo.done %}
+		<p>Finished: {{ todo.finished_ts }}</p>
+		{% else %}
+		
+		<p>Due Date: {{ todo.due_date }}</p>
+		{% endif %}
+	{% else %}
+		<li><em>Unbelievable. Nothing to do!</em>
+	{% endfor %}
+	</ul>
+{% endblock %}
