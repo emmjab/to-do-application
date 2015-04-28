@@ -4,6 +4,8 @@ from flask import Flask, request, session, g, redirect, url_for, \
                     abort, render_template, flash
 from contextlib import closing
 
+import time
+
 # configuration
 DATABASE = 'todo.db'
 DEBUG = True
@@ -64,6 +66,14 @@ def add_todo():
                     [request.form['description'], request.form['due_date']])
     get_db().commit()
     flash('New entry was successfully posted')
+    return redirect(url_for('show_todos'))
+
+@app.route('/ajax_call', methods=['POST'])
+def update_todo():
+    get_db().execute('update todo set done = ?, finished_ts = ? where id= ?', [int(request.json['is_done']), str(time.strftime("%d %m %Y")), int(request.json['id'])])
+    get_db().commit()
+    flash('updated')
+
     return redirect(url_for('show_todos'))
 
 # main function

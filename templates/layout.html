@@ -1,7 +1,12 @@
 <!doctype html>
 <title>To Do Application</title>
-<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles/style.css') }}">
 <div class=page>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.js')}}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/todo.js')}}"></script>
+	
+	
+
 	<h1>To Do</h1>
 	{% block body %}{% endblock %}
 </div>
